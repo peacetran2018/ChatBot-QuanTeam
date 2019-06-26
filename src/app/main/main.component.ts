@@ -26,6 +26,9 @@ export class MainComponent implements OnInit {
       case "how old are you":
         this.translation = "Bạn bao nhiêu tuổi rồi?";
         break;
+      default:
+        this.translation = "Tôi không hiểu";
+        break;
     }
     this.translations.push(this.translation);
     msg.value = "";
