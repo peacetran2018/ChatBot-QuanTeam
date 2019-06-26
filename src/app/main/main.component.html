@@ -4,18 +4,18 @@
         <div class="title">Chat Bot</div>
     </div>
     <ul class="messages">
-        <li *ngFor="let message of messages" class="message left appeared">
+        <li *ngFor="let conversation of messages" class="message {{conversation.position}} appeared">
             <div class="avatar"></div>
             <div class="text_wrapper">
-                <div class="text">{{message}}</div>
+                <div class="text">{{conversation.msg}}</div>
             </div>
         </li>
-        <li *ngFor="let trans of translations" class="message right appeared">
+        <!-- <li *ngFor="let trans of messages" class="message right appeared">
             <div class="avatar"></div>
             <div class="text_wrapper">
-                <div class="text">{{trans}}</div>
+                <div class="text">{{trans.right}}</div>
             </div>
-        </li>
+        </li> -->
     </ul>
     <div class="bottom_wrapper clearfix">
         <div class="message_input_wrapper">

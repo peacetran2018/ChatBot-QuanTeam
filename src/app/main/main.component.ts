@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  messages: string[] = [];
+  messages: any[] = [];
   translations: string[] = [];
   translation: string = "";
   constructor() { }
@@ -16,7 +16,7 @@ export class MainComponent implements OnInit {
   }
 
   sendMsg(msg) {
-    this.messages.push(msg.value);
+    this.messages.push({msg: msg.value, position: 'left'});
     switch (msg.value) {
       case "What is your name?":
       case "what is your name":
@@ -30,7 +30,8 @@ export class MainComponent implements OnInit {
         this.translation = "Tôi không hiểu";
         break;
     }
-    this.translations.push(this.translation);
+    this.messages.push({msg: this.translation, position:"right"});
+
     msg.value = "";
   }
 }
