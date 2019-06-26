@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChatbotService } from './service/chatbot.service';
 
 @Component({
   selector: 'app-main',
@@ -10,7 +11,7 @@ export class MainComponent implements OnInit {
   messages: any[] = [];
   translations: string[] = [];
   translation: string = "";
-  constructor() { }
+  constructor(private service: ChatbotService) { }
 
   ngOnInit() {
   }
@@ -31,6 +32,10 @@ export class MainComponent implements OnInit {
         break;
     }
     this.messages.push({msg: this.translation, position:"right"});
+
+    this.service.getTranslation(msg.value).subscribe(data =>{
+      console.log(data.message);
+    });
 
     msg.value = "";
   }
