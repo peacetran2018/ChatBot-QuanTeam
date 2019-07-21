@@ -3,7 +3,7 @@
         
         <div class="title">Chat Bot</div>
     </div>
-    <ul class="messages">
+    <ul class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
         <li *ngFor="let conversation of messages" class="message {{conversation.position}} appeared">
             <div class="avatar"></div>
             <div class="text_wrapper">
