@@ -17,24 +17,16 @@ export class MainComponent implements OnInit {
   }
 
   sendMsg(msg) {
-    this.messages.push({msg: msg.value, position: 'left'});
-    switch (msg.value) {
-      case "What is your name?":
-      case "what is your name":
-        this.translation = "Bạn tên gì?";
-        break;
-      case "how old are you?":
-      case "how old are you":
-        this.translation = "Bạn bao nhiêu tuổi rồi?";
-        break;
-      default:
-        this.translation = "Tôi không hiểu";
-        break;
-    }
-    this.messages.push({msg: this.translation, position:"right"});
-
-    this.service.getTranslation(msg.value).subscribe(data =>{
-      console.log(data.message);
+    this.messages.push({ msg: msg.value, position: 'left' });
+    this.messages.push({ msg: "...", position: 'right' });
+    this.service.getTranslation(msg.value).subscribe(data => {
+      if (data) {
+        const index = this.messages.findIndex(element => element.msg === "..."); 
+        if (index !== -1) {
+          this.messages.splice(index, 1);
+        }
+        this.messages.push({ msg: data, position: "right" });
+      }
     });
 
     msg.value = "";

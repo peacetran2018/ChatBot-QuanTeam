@@ -6,20 +6,24 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class ChatbotService {
-    
 
-    constructor(private httpClient: HttpClient) { 
 
-        
+    constructor(private httpClient: HttpClient) {
+
+
+    }
+    getBaseUrl(){
+        return "https://deploychatbot.herokuapp.com/";
     }
 
-    getTranslation(msg: string) : Observable<any>{
-        const headers = new HttpHeaders()
-    .set("Content-Type", "application/json")
-    .set("Access-Control-Allow-Origin", "*")
-    .set("Accept", "application/json");
-        return this.httpClient.get<any>('text', 
-        {headers: headers
+    getTranslation(msg: string): Observable<any> {
+        const headers = new HttpHeaders({
+            "Content-Type": "application/json"
         });
+        return this.httpClient.post<any>(this.getBaseUrl() + 'gettranslation/', '"'+msg+'"',
+            {
+                responseType:"json",
+                headers: headers
+            });
     }
 }
