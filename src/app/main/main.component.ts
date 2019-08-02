@@ -17,17 +17,23 @@ export class MainComponent implements OnInit {
   }
 
   sendMsg(msg) {
-    this.messages.push({ msg: msg.value, position: 'left' });
-    this.messages.push({ msg: "...", position: 'right' });
-    this.service.getTranslation(msg.value).subscribe(data => {
-      if (data) {
-        const index = this.messages.findIndex(element => element.msg === "..."); 
-        if (index !== -1) {
-          this.messages.splice(index, 1);
+    if (msg.value === "") {
+      this.messages.push({ msg: "Vui lòng nhập nội dung...", position: 'right' });
+    }
+    else {
+      this.messages.push({ msg: msg.value, position: 'left' });
+      this.messages.push({ msg: "...", position: 'right' });
+      this.service.getTranslation(msg.value).subscribe(data => {
+        if (data) {
+          const index = this.messages.findIndex(element => element.msg === "...");
+          if (index !== -1) {
+            this.messages.splice(index, 1);
+          }
+          this.messages.push({ msg: data, position: "right" });
         }
-        this.messages.push({ msg: data, position: "right" });
-      }
-    });
+      });
+    }
+
 
     msg.value = "";
   }

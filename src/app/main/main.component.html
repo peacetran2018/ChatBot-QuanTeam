@@ -1,19 +1,19 @@
 <div class="chat_window">
     <div class="top_menu">
-        
         <div class="title">Chat Bot</div>
     </div>
     <ul class="messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
         <li *ngFor="let conversation of messages" class="message {{conversation.position}} appeared">
             <div class="avatar"></div>
             <div class="text_wrapper">
-                <div class="text">{{conversation.msg}}</div>
+                <div *ngIf="conversation.msg === '...'" class="loader">Loading...</div>
+                <div *ngIf="conversation.msg !== '...'" class="text">{{conversation.msg}}</div>
             </div>
         </li>
     </ul>
     <div class="bottom_wrapper clearfix">
         <div class="message_input_wrapper">
-            <input class="message_input" placeholder="Type your message here..."  #msg (keyup.enter)="sendMsg(msg)"/>
+            <input class="message_input" placeholder="Type your message here..." #msg (keyup.enter)="sendMsg(msg)" />
         </div>
         <div class="send_message" (click)="sendMsg(msg)">
             <div class="icon"></div>
